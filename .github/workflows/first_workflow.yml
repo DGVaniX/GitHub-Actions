@@ -1,0 +1,24 @@
+name: Deploy Web App
+
+on: push
+
+jobs:
+  deploy_app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy container
+        run: |
+          docker image pull nginx
+          docker image ls
+          docker container run -d -p 8080:80 nginx
+          sleep 5  # Wait for the container to start
+
+      - name: Test deploy
+        run: |
+          python3 -m pip install requests
+          python3 -c "import requests; r=requests.get('http://localhost:8080'); print(r.status_code)"
+          curl -s localhost:8080
