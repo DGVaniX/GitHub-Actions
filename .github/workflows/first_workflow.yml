@@ -1,13 +1,12 @@
 name: Deploy Web App
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-  path:
-    exclude:
-      - '.github/workflows/*'
+    push:
+        branches:
+            - main
+        paths-ignore:
+            - '.github/workflows/*'
+    workflow_dispatch:
 
 jobs:
   deploy_app:
